@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.google.common.collect.Lists;
+
 public class PMCounter {
 		private ArrayList<String> name = new ArrayList<String>();
 		private ArrayList<String> trash = new ArrayList<String>();
@@ -50,18 +52,27 @@ public class PMCounter {
 		}
 			
 			
-		/**public HashMap<String,Integer>countinfo(ArrayList<String> list){
+	
 			
-			 
-		        for(int i =0; list.size())
+			 	
+			/**public HashMap<String,Integer> countInfo(ArrayList<Lists> list) {
+				HashMap<String,Integer> nameAndMessage = new HashMap<String,Integer>();
+				int length = list.size();
 
-		    
-		}
-			
-			
+
+				for(int i=0 ; i<length ; i++){
+
+					int count=0;
+					Lists person = list.get(i);
+					
+					
+
+				return nameAndMessage;
+
+			}
 
 		}
-		**/
+**/
 		
 		
 		
