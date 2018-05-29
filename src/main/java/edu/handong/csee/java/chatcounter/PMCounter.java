@@ -1,14 +1,15 @@
 package edu.handong.csee.java.chatcounter;
 
 import java.util.ArrayList;
-
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class PMCounter {
 		private ArrayList<String> name = new ArrayList<String>();
 		private ArrayList<String> trash = new ArrayList<String>();
-		public void count(ArrayList<String> lines) {	
+		public HashMap<String, Integer> count = new HashMap<String, Integer>();
+		public ArrayList<String>count (ArrayList<String> lines) {	
 			
 		Pattern pattern1 = Pattern.compile("([0-9]{4}. [0-9]+. [0-9]+. .+),(.+), \\[(.+)\\]");//txtkor
 		Pattern pattern2 = Pattern.compile("([0-9]+-[0-9]+-[0-9]+ [0-9]+:[0-9]+:[0-9]+), (.+), \\[(.+)\\]");//csv
@@ -45,10 +46,23 @@ public class PMCounter {
 		
 		
 		}
+		return name;
+		}
 			
 			
-		System.out.println(name);
+		public HashMap<String,Integer>countinfo(ArrayList<String> list){
+			
+			 
+		        for(int i =0; list.size())
+
+		    
+		}
+			
+			
+
+		}
+		
+		
+		
 		
 	}
-
-}

@@ -1,6 +1,7 @@
 package edu.handong.csee.java.chatcounter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 
 
@@ -29,8 +30,11 @@ public class ChatCounter {
 		
 		//System.out.println(list);
 		PMCounter counter = new PMCounter();
-		counter.count(redun.eliminateRepeat(list));
 		
+		ArrayList<String> newList = counter.count(redun.eliminateRepeat(list));
+		HashMap<String, Integer> count = new HashMap<String, Integer>();
+		
+		count = counter.countinfo(newList);
 		//fileName.returnMacMessages()
 		
 		
