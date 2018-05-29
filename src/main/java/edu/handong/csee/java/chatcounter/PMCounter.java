@@ -50,7 +50,7 @@ public class PMCounter {
 		}
 			
 			
-		public HashMap<String,Integer>countinfo(ArrayList<String> list){
+		/**public HashMap<String,Integer>countinfo(ArrayList<String> list){
 			
 			 
 		        for(int i =0; list.size())
@@ -61,7 +61,7 @@ public class PMCounter {
 			
 
 		}
-		
+		**/
 		
 		
 		
