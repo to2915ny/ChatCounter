@@ -1,6 +1,7 @@
 package edu.handong.csee.java.chatcounter;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,6 +15,9 @@ public class MessageParser {
 	private String temp = null;
 	private ArrayList<String> trash = new ArrayList<String>();
 	private ArrayList<String> parsed = new ArrayList<String>();
+	
+	
+	
 	public void parseCSV(ArrayList<String> macMessages) {
 		
 		String pattern1 = "([0-9]+-[0-9]+-[0-9]+ [0-9]+:[0-9]+:[0-9]+),\"([^\"]+)\",\"([^\"]+)";//ends with no " at the end
@@ -50,7 +54,7 @@ public class MessageParser {
 			
 			
 		}
-		parsed.add(" " + date+"," +" " +name+"," +" " + "["+message+"]" );
+		parsed.add(" " + date+","+name+"," +" " + "["+message+"]" );
 		
 		}
 		parsed.remove(0);
@@ -103,7 +107,7 @@ public class MessageParser {
 					}
 					
 					
-					parsed.add(" " + date+"," +" " +this.name+"," +" "+ "["+message+"]");
+					parsed.add(" " + date+","+this.name+"," +" "+ "["+message+"]");
 			
 		}
 		
@@ -115,6 +119,8 @@ public class MessageParser {
 	public ArrayList<String> returnParsed() {
 		return parsed;
 	}
+	
+	
 	
 	}
 		

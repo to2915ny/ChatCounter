@@ -2,6 +2,11 @@ package edu.handong.csee.java.chatcounter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
+import java.util.TreeSet;
+
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -12,27 +17,29 @@ import org.apache.commons.cli.Options;
 
 
 public class ChatCounter {
+	
 	String path;
 	String output;
 	boolean verbose;
 	boolean help;
+	
 	public static void main(String[] args) {
 		ChatCounter runner = new ChatCounter();
-		runner.run(args);
+		runner.run();
 
 	}
-	public void run(String[] args) {
-		Options options = createOptions();
+	public void run() {
+		//Options options = createOptions();
 
-		if(parseOptions(options, args)) {
+		/**if(parseOptions(options, args)) {
 			if (help){
 				printHelp(options);
 				return;
-			}
+			}**/
 		FileLoader fileName = new FileLoader();
 		
 		
-		fileName.readDirectory(path);
+		fileName.readDirectory("/Users/seungyonglee/Documents/java git/ChatCounter/ChatCount");
 		
 		//fileName.returnWinMessages()
 		MessageParser parse = new MessageParser();
@@ -46,12 +53,22 @@ public class ChatCounter {
 		
 		//System.out.println(list);
 		PMCounter counter = new PMCounter();
-		
+		//ArrayList<String>check = redun.eliminateRepeat(list);
+		//System.out.println(list);
 		ArrayList<String> newList = counter.count(redun.eliminateRepeat(list));
 		
-		HashMap<String, Integer> count = new HashMap<String, Integer>();
+		//System.out.println(newList);
+		ArrayList<String> names = newList;
 		
-		//count = counter.countinfo(newList);
+		TreeSet<String> unique = new TreeSet<String>(names);
+		ArrayList<String> name = new ArrayList<String>(unique);
+		//System.out.println(names);
+		
+		//counter.counter(name);
+		
+		FileWriter write = new FileWriter();
+		write.writeFile(counter.counter(name));
+		
 		
 		
 		
@@ -64,8 +81,9 @@ public class ChatCounter {
 		
 		
 		}
+	
 	}
-		private boolean parseOptions(Options options, String[] args) {
+		/**private boolean parseOptions(Options options, String[] args) {
 			CommandLineParser parser = new DefaultParser();
 
 			try {
@@ -116,7 +134,6 @@ public class ChatCounter {
 			// automatically generate the help statement
 			HelpFormatter formatter = new HelpFormatter();
 			String header = "CLI test program";
-			String footer ="\nPlease report issues at https://github.com/lifove/CLIExample/issues";
+			String footer ="\nPlease report issues at https://github.com/to2915ny/CLIExample/issues";
 			formatter.printHelp("CLIExample", header, options, footer, true);
-		}
-}
+		}**/

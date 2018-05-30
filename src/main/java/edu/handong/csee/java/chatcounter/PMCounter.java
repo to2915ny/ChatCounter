@@ -10,12 +10,12 @@ import com.google.common.collect.Lists;
 public class PMCounter {
 		private ArrayList<String> name = new ArrayList<String>();
 		private ArrayList<String> trash = new ArrayList<String>();
-		public HashMap<String, Integer> count = new HashMap<String, Integer>();
+		public HashMap<String, Integer> counted = new HashMap<String, Integer>();
 		public ArrayList<String>count (ArrayList<String> lines) {	
 			
 		Pattern pattern1 = Pattern.compile("([0-9]{4}. [0-9]+. [0-9]+. .+),(.+), \\[(.+)\\]");//txtkor
-		Pattern pattern2 = Pattern.compile("([0-9]+-[0-9]+-[0-9]+ [0-9]+:[0-9]+:[0-9]+), (.+), \\[(.+)\\]");//csv
-		Pattern pattern3 = Pattern.compile("([A-Za-z]+, [A-Za-z]+ [0-9]+, [0-9]+) ([0-9]+:[0-9]+ [A-Z]+), (.+), \\[(.+)\\]");	
+		Pattern pattern2 = Pattern.compile("([0-9]+-[0-9]+-[0-9]+ [0-9]+:[0-9]+:[0-9]+),(.+), \\[(.+)\\]");//csv
+		Pattern pattern3 = Pattern.compile("([A-Za-z]+, [A-Za-z]+ [0-9]+, [0-9]+) ([0-9]+:[0-9]+ [A-Z]+),(.+), \\[(.+)\\]");	
 		
 		
 		for(String line : lines) {
@@ -38,7 +38,7 @@ public class PMCounter {
 					
 				Matcher match2 = pattern3.matcher(line);
 				if(match2.find())
-					name.add(match2.group(2));
+					name.add(match2.group(3));
 					
 					
 			}
@@ -49,30 +49,30 @@ public class PMCounter {
 		
 		}
 		return name;
+		
 		}
-			
+		public HashMap<String, Integer> counter(ArrayList<String> list){
+			int count =0;
+			for(String line : list) {
+				for(int i=0;i<this.name.size();i++) {
+					if(line.equals(name.get(i))) {
+						count++;
+						counted.put(line, count);
+					}
+						
+				}
+				
+				
+				
+				
+			}
+			System.out.println(counted);
+			return counted;
+		}
 			
 	
 			
-			 	
-			/**public HashMap<String,Integer> countInfo(ArrayList<Lists> list) {
-				HashMap<String,Integer> nameAndMessage = new HashMap<String,Integer>();
-				int length = list.size();
-
-
-				for(int i=0 ; i<length ; i++){
-
-					int count=0;
-					Lists person = list.get(i);
-					
-					
-
-				return nameAndMessage;
-
-			}
-
-		}
-**/
+			
 		
 		
 		
