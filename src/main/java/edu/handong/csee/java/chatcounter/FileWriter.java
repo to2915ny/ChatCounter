@@ -26,7 +26,7 @@ public class FileWriter {
 		String fileName = "outputResult.txt";
 		PrintWriter output = null;
 		Collections.sort(sorting, new Comparator<Object>() {
-			
+
 			public int compare(Object o1, Object o2) {
 				Object v1 = nameAndMessage.get(o1);
 				Object v2 = nameAndMessage.get(o2);
@@ -36,17 +36,17 @@ public class FileWriter {
 		Collections.reverse(sorting);
 		try {
 			output = new PrintWriter(fileName);
-			
-			
-			
+
+
+
 		} catch(FileNotFoundException e) {
 			System.out.println("Error occured to open " + fileName);
 			System.exit(0);
 		}
-		
+
 		output.println("kakao_id,count");
 		for(int i=0; i<sorting.size(); i++) {
-			
+
 			output.print(sorting.get(i));
 			output.println(","+nameAndMessage.get(sorting.get(i)));
 		}
