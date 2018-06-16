@@ -8,57 +8,50 @@ import java.util.regex.Pattern;
 
 public class MessageParser {
 	
+	private ArrayList<String> newTime = new ArrayList<String>();
+	private ArrayList<String> time = new ArrayList<String>();
+	private ArrayList<String> name = new ArrayList<String>();
+	private ArrayList<String> message = new ArrayList<String>();
+	private ArrayList<String> winTime = new ArrayList<String>();
+	private ArrayList<String> winName = new ArrayList<String>();
+	private ArrayList<String> winMsg = new ArrayList<String>();
 	
-	private String date = null;
-	private String name = null;
-	private String message = null;
-	private String temp = null;
-	private ArrayList<String> trash = new ArrayList<String>();
-	private ArrayList<String> parsed = new ArrayList<String>();
 	
+	private ArrayList<String> macLine = new ArrayList<String>();
+	private ArrayList<String> winLine = new ArrayList<String>();
 	
 	
 	public void parseCSV(ArrayList<String> macMessages) {
 		
-		String pattern1 = "([0-9]+-[0-9]+-[0-9]+ [0-9]+:[0-9]+:[0-9]+),\"([^\"]+)\",\"([^\"]+)";//ends with no " at the end
+		String pattern = "([0-9]+-[0-9]+-[0-9]+ [0-9]+:[0-9]+:[0-9]+),\"([^\"]+)\",\"([^\"]+)";
 		String pattern2 = "([0-9]+-[0-9]+-[0-9]+ [0-9]+:[0-9]+:[0-9]+),\"([^\"]+)\",\"([^\"]+)\"";
 		
-		Pattern r = Pattern.compile(pattern1);
+		Pattern r = Pattern.compile(pattern);
 		Pattern r1 = Pattern.compile(pattern2);
 		
 		for(String line : macMessages) {
-			
-		if(line.contains("Photo")||line.contains("사진")|| line.contains(" joined this chatroom.") || 
-				line.contains("(Emoticon)") || line.contains("(이모티콘)") || line.contains(" left this chatroom.")) {
-			trash.add(line);
-		}
-		
-		else {
 			Matcher match = r.matcher(line);
-			if(match.find()) {
-				date = match.group(1);
-				name = match.group(2);
-				message= match.group(3);
-				
-			}
-			
-		
-		
-		
 			Matcher match1 = r1.matcher(line);
-			if(match1.find()) {
-				date = match1.group(1);
-				name = match1.group(2);
-				message = match1.group(3);
+			
+			if(match.find()) {
+				time.add(match.group(1));
+				name.add(match.group(2));
+				message.add(match.group(3));
+				macLine.add(match.group(1)+" "+"<"+match.group(2)+">"+" "+match.group(3));
 			}
 			
 			
-		}
-		parsed.add(" " + date+","+name+"," +" " + "["+message+"]" );
+			if(match1.find()) {
+				time.add(match1.group(1));
+				name.add(match1.group(2));
+				message.add(match1.group(3));
+				macLine.add(match1.group(1)+" "+"<"+match1.group(2)+">"+" "+ match1.group(3));
+			}
 		
+			
 		}
-		parsed.remove(0);
-		parsed.remove(0);
+		
+		
 		
 		
 		
@@ -66,60 +59,96 @@ public class MessageParser {
 
 	
 	public void parseTxt(ArrayList<String> winMessage) {
-	 	String pattern1 ="-+ ([0-9]{4}. [0-9]+. [0-9]+. .+) -+"; // 한
-			String pattern2 = "-+ ([A-Za-z]+, [A-Za-z]+ [0-9]+. [0-9]+) -+"; //eng
-			String pattern3 = "\\[(.+)\\] \\[(.+)\\] (.+)";
+	 	
+			String pattern = "\\[(.+)\\] \\[(.+)\\] (.+)";
 			
-			Pattern r = Pattern.compile(pattern1);
-			Pattern r1 = Pattern.compile(pattern2);
-			Pattern r2 = Pattern.compile(pattern3);
+			Pattern r = Pattern.compile(pattern);
+			
 			
 		for(String line : winMessage) {
-			if(line.contains("photo")||line.contains("사진")|| line.contains(" joined this chatroom.") || 
-				line.contains("(Emoticon)") || line.contains("(이모티콘)") || line.contains(" left this chatroom.")) {
-			trash.add(line);
-		}
 			
 			
-			else{
+			
+			
 		
 				Matcher match = r.matcher(line);
 				 
-				if(match.find()) {
-					date = match.group(1);
-					name = null;
-					message = null;
-					temp = match.group(1);
+				while(match.find()) {
+					winName.add(match.group(1));
+					winTime.add(match.group(2));
+					winMsg.add(match.group(3));
+					
 					
 				}
-				Matcher match1 = r1.matcher(line);
-				if(match1.find()){
-					date = match1.group(1);
-					name= null;
-					message = null;
-					temp = match1.group(1);}
-					
-				Matcher match2 = r2.matcher(line);
-				if(match2.find()){
-					date = temp + " " + match2.group(2);
-					this.name = match2.group(1);
-					this.message = match2.group(3);}
-					}
-					
-					
-					parsed.add(" " + date+","+this.name+"," +" "+ "["+message+"]");
+						
 			
 		}
 		
 			
+		timeEqual();		
+		
+			
+		}
+	private void timeEqual(){
+		String hour =null;
+		String min = null;
+		int temp;
+		for(int i=0; i<winTime.size(); i++) {
+			
+			String time = winTime.get(i);
+			
+			if(time.contains("오전")||time.contains("AM")) {
+				Pattern a = Pattern.compile("([0-9]+):([0-9]+)");
+				Matcher match = a.matcher(time);
 				
-		
-			
+				while(match.find()) {
+					
+					hour = match.group(1);
+					min = match.group(2);
+				}
+				if(hour.contains("12")) {
+					hour = "00";
+					newTime.add(i,hour+":"+min);
+				}
+				else if(hour.length() ==1) 
+					newTime.add(i,"0"+hour+":"+min);
+				else
+					newTime.add(i,hour+":"+min);
+				}
+			else if(time.contains("오후")||time.contains("PM")) {
+				Pattern b = Pattern.compile("([0-9]+):([0-9]+)");
+				Matcher match1 = b.matcher(time);
+				
+				while(match1.find()) {
+					hour = match1.group(1);
+					min = match1.group(2);
+					
+				}
+				if(!hour.contains("12")) {
+				temp = Integer.parseInt(hour);
+				temp = temp + 12;
+				hour = String.valueOf(temp);
+				}
+				newTime.add(i,hour+":"+min);
+			}
 		}
-	public ArrayList<String> returnParsed() {
-		return parsed;
+		
+		for(int i =0; i<winName.size();i++)
+			winLine.add(i,"<"+winName.get(i)+">"+" "+newTime.get(i)+" "+winMsg.get(i));
+		
 	}
-	
+	public ArrayList<String> getWinLine(){
+		return winLine;
+	}
+	public ArrayList<String> getMacLine(){
+		return macLine;
+	}
+	public ArrayList<String> getWinName(){
+		return winName;
+	}
+	public ArrayList<String> getMacName(){
+		return name;
+	}
 	
 	
 	}

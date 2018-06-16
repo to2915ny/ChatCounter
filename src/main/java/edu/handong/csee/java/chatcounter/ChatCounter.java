@@ -37,37 +37,47 @@ public class ChatCounter {
 				return;
 			}**/
 		FileLoader fileName = new FileLoader();
-		
-		
-		fileName.readDirectory("/Users/seungyonglee/Documents/java git/ChatCounter/ChatCount");
-		
-		//fileName.returnWinMessages()
 		MessageParser parse = new MessageParser();
-		
-		parse.parseCSV(fileName.returnMacMessages());
-		parse.parseTxt(fileName.returnWinMessages());
-		
-		ArrayList<String> list = parse.returnParsed();
-		
 		RedundancyChecker redun = new RedundancyChecker();
+		PMCounter count = new PMCounter();
+		FileWriter write = new FileWriter();
+		
+		
+		fileName.readDirectory("C:\\git\\ChatCounter\\ChatCount");
+		parse.parseTxt(fileName.returnWinMessages());
+		parse.parseCSV(fileName.returnMacMessages());
+		
+		ArrayList<String> one = new ArrayList<String>();
+		one.addAll(parse.getWinLine());
+		one.addAll(parse.getMacLine());
+		//System.out.println(one);
+		//System.out.println(redun.eliminateRepeat(one));
+		HashMap<String, Integer> hashlist = new HashMap<String, Integer>();
+		hashlist = count.countData(redun.eliminateRepeat(one));
+		
+		write.writeFile(hashlist);
+		
+		//ArrayList<String> list = parse.returnParsed();
+		
+		
 		
 		//System.out.println(list);
-		PMCounter counter = new PMCounter();
+		//PMCounter counter = new PMCounter();
 		//ArrayList<String>check = redun.eliminateRepeat(list);
 		//System.out.println(list);
-		ArrayList<String> newList = counter.count(redun.eliminateRepeat(list));
+		//ArrayList<String> newList = counter.count(redun.eliminateRepeat(list));
 		
 		//System.out.println(newList);
-		ArrayList<String> names = newList;
+		//ArrayList<String> names = newList;
 		
-		TreeSet<String> unique = new TreeSet<String>(names);
-		ArrayList<String> name = new ArrayList<String>(unique);
+		//TreeSet<String> unique = new TreeSet<String>(names);
+		//ArrayList<String> name = new ArrayList<String>(unique);
 		//System.out.println(names);
 		
 		//counter.counter(name);
 		
-		FileWriter write = new FileWriter();
-		write.writeFile(counter.counter(name));
+		
+		//write.writeFile(counter.counter(name));
 		
 		
 		
