@@ -1,11 +1,15 @@
 package edu.handong.csee.java.chatcounter;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
 import java.util.TreeSet;
+import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
@@ -26,6 +30,10 @@ public class ChatCounter {
 	String output;
 	boolean verbose;
 	boolean help;
+	int threadNum;
+	String getNumThreads;
+	
+	private File dirc =null;
 	/**
 	 * This is the main method which instantiate ChatCounter as runner and run the program
 	 * @param args
@@ -48,16 +56,63 @@ public class ChatCounter {
 				printHelp(options);
 				return;
 			}
-			FileLoader fileName = new FileLoader();
+			//FileLoader fileName = new FileLoader();
 			MessageParser parse = new MessageParser();
 			RedundancyChecker redun = new RedundancyChecker();
 			PMCounter count = new PMCounter();
 			FileWriter write = new FileWriter();
+			ArrayList<CSVreader> csv = new ArrayList<CSVreader>();
+			ArrayList<TXTreader> txt = new ArrayList<TXTreader>();
+			ArrayList<String> csvMsg = new ArrayList<String>();
+			ArrayList<String> txtMsg = new ArrayList<String>();
+			this.dirc = new File(path);
+			
+			threadNum = Integer.parseInt(getNumThreads);
+			
+			ExecutorService executor = Executors.newFixedThreadPool(threadNum);
+			for(File file:dirc.listFiles())
+			{
+				if (file.getName().contains(".csv")) {
 
+					Runnable worker = new CSVreader(file);
+					executor.execute(worker);
+					csv.add((CSVreader)worker);
+				}
+			}
 
-			fileName.readDirectory(path);
-			parse.parseTxt(fileName.returnWinMessages());
-			parse.parseCSV(fileName.returnMacMessages());
+			executor.shutdown();
+			while(!executor.isTerminated()) {
+
+			}			  	
+			
+			for(CSVreader runner : csv) {
+				csvMsg.addAll(runner.macMessages);
+			}
+			
+			ExecutorService executor2 = Executors.newFixedThreadPool(threadNum);
+
+			for(File file:dirc.listFiles())
+			{
+				if (file.getName().contains(".txt")) {
+
+					Runnable worker = new TXTreader(file);
+					executor2.execute(worker);
+					txt.add((TXTreader)worker);
+				}
+			}
+
+			executor2.shutdown();
+			while(!executor2.isTerminated()) {
+
+			}			  	
+
+			
+			for(TXTreader runner : txt) {
+				txtMsg.addAll(runner.winMessages);
+			}
+			//fileName.readDirectory(path);
+			parse.parseTxt(txtMsg);
+			parse.parseCSV(csvMsg);
 
 			ArrayList<String> one = new ArrayList<String>();
 			one.addAll(parse.getWinLine());
