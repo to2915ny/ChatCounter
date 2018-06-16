@@ -15,19 +15,31 @@ import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
 
-
+/** 
+ * This class is controller class ChatCounter
+ * @author to291
+ *
+ */
 public class ChatCounter {
 	
 	String path;
 	String output;
 	boolean verbose;
 	boolean help;
-	
+	/**
+	 * This is the main method which instantiate ChatCounter as runner and run the program
+	 * @param args
+	 */
 	public static void main(String[] args) {
 		ChatCounter runner = new ChatCounter();
 		runner.run(args);
 
 	}
+	/**
+	 * This is the actual control method which takes in path as parameter and 
+	 * controls the flow of the program until output is produced
+	 * @param args
+	 */
 	public void run(String[] args) {
 		Options options = createOptions();
 
@@ -62,6 +74,12 @@ public class ChatCounter {
 		}
 	
 	}
+	/**
+	 * CLI methods which parses different method as user types in the corresponding option
+	 * @param options
+	 * @param args
+	 * @return
+	 */
 		private boolean parseOptions(Options options, String[] args) {
 			CommandLineParser parser = new DefaultParser();
 
@@ -82,6 +100,10 @@ public class ChatCounter {
 		}
 
 		// Definition Stage
+		/**
+		 * This is the Definition Stage where each options are defined
+		 * @return
+		 */
 		private Options createOptions() {
 			Options options = new Options();
 
@@ -108,7 +130,10 @@ public class ChatCounter {
 
 			return options;
 		}
-		
+		/**
+		 * This method prints out various instruction for clear and easy to use environment for the user
+		 * @param options
+		 */
 		private void printHelp(Options options) {
 			// automatically generate the help statement
 			HelpFormatter formatter = new HelpFormatter();

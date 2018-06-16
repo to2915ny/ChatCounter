@@ -5,7 +5,13 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-
+/**
+ * This class parses each messages from txt file and csv file into the format that i want it to be 
+ * Used regular expression to extract time name and message and concatenated the lines once again
+ * in the same format so Redundancy check will be alot easier
+ * @author to291
+ *
+ */
 public class MessageParser {
 	
 	private ArrayList<String> newTime = new ArrayList<String>();
@@ -20,18 +26,20 @@ public class MessageParser {
 	private ArrayList<String> macLine = new ArrayList<String>();
 	private ArrayList<String> winLine = new ArrayList<String>();
 	
-	
+	/**
+	 * This method takes in messages in CSV file and parses it in the format i want
+	 * @param macMessages
+	 */
 	public void parseCSV(ArrayList<String> macMessages) {
 		
-		//String pattern = "([0-9]+:[0-9]+:[0-9]+),\"([^\"]+)\",\"([^\"]+)";
-		//String pattern2 = "([0-9]+-[0-9]+-[0-9]+ [0-9]+:[0-9]+:[0-9]+),\"([^\"]+)\",\"([^\"]+)\"";
+		
 		
 		Pattern r = Pattern.compile(".+\\s([0-9]+:[0-9]+):[0-9]+,\"(.+)\",\"(.+)\"");
-		//Pattern r1 = Pattern.compile(pattern2);
+		
 		
 		for(String line : macMessages) {
 			Matcher match = r.matcher(line);
-			//Matcher match1 = r1.matcher(line);
+			
 			
 			while(match.find()) {
 				time.add(match.group(1));
@@ -42,13 +50,7 @@ public class MessageParser {
 			}
 			
 			
-			/*if(match1.find()) {
-				time.add(match1.group(1));
-				name.add(match1.group(2));
-				message.add(match1.group(3));
-				macLine.add(match1.group(1)+" "+"<"+match1.group(2)+">"+" "+ match1.group(3));
-			}
-		*/
+			
 			
 		}
 		
@@ -58,7 +60,11 @@ public class MessageParser {
 		
 	}
 
-	
+	/**
+	 * this method takes in messages from a txt file and parses it into a format that i want
+	 * also i changed the hours into 24hour clock format so the time from csv and txt are coherent
+	 * @param winMessage
+	 */
 	public void parseTxt(ArrayList<String> winMessage) {
 	 	
 			String pattern = "\\[(.+)\\] \\[(.+)\\] (.+)";
@@ -90,6 +96,9 @@ public class MessageParser {
 		
 			
 		}
+	/**
+	 * This is the method i mentioned earlier which is invoked in the txtparse method to obtain 24hour clock format
+	 */
 	private void timeEqual(){
 		String hour =null;
 		String min = null;

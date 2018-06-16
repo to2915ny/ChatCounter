@@ -2,7 +2,12 @@ package edu.handong.csee.java.chatcounter;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
+/**
+ * This class checks if any redundant messages are made in the chat if the user made the exact same message at the exact time then
+ * the two corresponding messages are merged to one
+ * @author to291
+ *
+ */
 public class RedundancyChecker {
 
 	static ArrayList<String> checker;

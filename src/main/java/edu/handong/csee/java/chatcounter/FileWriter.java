@@ -8,8 +8,17 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Map.Entry;
-
+/**
+ * This class Writes all produces the final output of the program, ChatCounter
+ * @author to291
+ *
+ */
 public class FileWriter {
+	/**
+	 * This method takes HashMap which contains the name and the number of chat made and writes 
+	 * result into txt file Also Collections class is used for making the results in descending order of contribution in chat
+	 * @param nameAndMessage
+	 */
 	public void writeFile(HashMap<String,Integer> nameAndMessage) {
 
 		ArrayList<String> sorting = new ArrayList<String>();

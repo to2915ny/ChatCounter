@@ -6,7 +6,12 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
+/**
+ * This class lists all the files into the array then extracts the messages from each file into two
+ * separate ArrayList one for CSV and one for TXT
+ * @author to291
+ *
+ */
 public class FileLoader {
 	
 	private ArrayList<String> winMessages = new ArrayList<String>();
@@ -14,7 +19,10 @@ public class FileLoader {
 	
 	
 	
-
+/**
+ * This method gets all the filename then separates the messages from each files : one for CSV and one for TXT
+ * @param path
+ */
 	public void readDirectory(String path) {
 		
 		ArrayList<File> fileName = getFileNames(path);
@@ -66,7 +74,11 @@ public class FileLoader {
 	
 		
 	
-	
+	/**
+	 * This method gets the file from the directory then puts the list of names into an ArrayList
+	 * @param path
+	 * @return
+	 */
 	public ArrayList<File> getFileNames(String path){
 		
 		ArrayList<File> fileNames = new ArrayList<File>();
@@ -80,12 +92,18 @@ public class FileLoader {
 		return fileNames;
 		}
 	
-	
+	/**
+	 * This is a getter for txt messages
+	 * @return
+	 */
 	public ArrayList<String> returnWinMessages(){
 		
 		return winMessages;
 	}
-
+/**
+ * This is a getter for csv messages
+ * @return
+ */
 	public ArrayList<String> returnMacMessages(){
 		
 		return macMessages;
