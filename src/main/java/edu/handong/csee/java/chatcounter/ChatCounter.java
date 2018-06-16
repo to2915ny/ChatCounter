@@ -25,17 +25,17 @@ public class ChatCounter {
 	
 	public static void main(String[] args) {
 		ChatCounter runner = new ChatCounter();
-		runner.run();
+		runner.run(args);
 
 	}
-	public void run() {
-		//Options options = createOptions();
+	public void run(String[] args) {
+		Options options = createOptions();
 
-		/**if(parseOptions(options, args)) {
+		if(parseOptions(options, args)) {
 			if (help){
 				printHelp(options);
 				return;
-			}**/
+			}
 		FileLoader fileName = new FileLoader();
 		MessageParser parse = new MessageParser();
 		RedundancyChecker redun = new RedundancyChecker();
@@ -43,57 +43,26 @@ public class ChatCounter {
 		FileWriter write = new FileWriter();
 		
 		
-		fileName.readDirectory("C:\\git\\ChatCounter\\ChatCount");
+		fileName.readDirectory(path);
 		parse.parseTxt(fileName.returnWinMessages());
 		parse.parseCSV(fileName.returnMacMessages());
 		
 		ArrayList<String> one = new ArrayList<String>();
 		one.addAll(parse.getWinLine());
 		one.addAll(parse.getMacLine());
-		//System.out.println(one);
-		//System.out.println(redun.eliminateRepeat(one));
+		
+		
+		
 		HashMap<String, Integer> hashlist = new HashMap<String, Integer>();
 		hashlist = count.countData(redun.eliminateRepeat(one));
 		
 		write.writeFile(hashlist);
 		
-		//ArrayList<String> list = parse.returnParsed();
-		
-		
-		
-		//System.out.println(list);
-		//PMCounter counter = new PMCounter();
-		//ArrayList<String>check = redun.eliminateRepeat(list);
-		//System.out.println(list);
-		//ArrayList<String> newList = counter.count(redun.eliminateRepeat(list));
-		
-		//System.out.println(newList);
-		//ArrayList<String> names = newList;
-		
-		//TreeSet<String> unique = new TreeSet<String>(names);
-		//ArrayList<String> name = new ArrayList<String>(unique);
-		//System.out.println(names);
-		
-		//counter.counter(name);
-		
-		
-		//write.writeFile(counter.counter(name));
-		
-		
-		
-		
-		
-			
-		
-		
-		
-		
-		
 		
 		}
 	
 	}
-		/**private boolean parseOptions(Options options, String[] args) {
+		private boolean parseOptions(Options options, String[] args) {
 			CommandLineParser parser = new DefaultParser();
 
 			try {
@@ -146,4 +115,5 @@ public class ChatCounter {
 			String header = "CLI test program";
 			String footer ="\nPlease report issues at https://github.com/to2915ny/CLIExample/issues";
 			formatter.printHelp("CLIExample", header, options, footer, true);
-		}**/
+		}
+}

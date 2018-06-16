@@ -11,7 +11,7 @@ plugins {
     id 'java-library'
 }
 apply plugin: 'application'
-mainClassName= "edu.handong.csee.java.applications.ChatCounter"
+mainClassName= "edu.handong.csee.java.chatcounter.ChatCounter"
 
 dependencies {
     // This dependency is exported to consumers, that is to say found on their compile classpath.

@@ -23,31 +23,32 @@ public class MessageParser {
 	
 	public void parseCSV(ArrayList<String> macMessages) {
 		
-		String pattern = "([0-9]+-[0-9]+-[0-9]+ [0-9]+:[0-9]+:[0-9]+),\"([^\"]+)\",\"([^\"]+)";
-		String pattern2 = "([0-9]+-[0-9]+-[0-9]+ [0-9]+:[0-9]+:[0-9]+),\"([^\"]+)\",\"([^\"]+)\"";
+		//String pattern = "([0-9]+:[0-9]+:[0-9]+),\"([^\"]+)\",\"([^\"]+)";
+		//String pattern2 = "([0-9]+-[0-9]+-[0-9]+ [0-9]+:[0-9]+:[0-9]+),\"([^\"]+)\",\"([^\"]+)\"";
 		
-		Pattern r = Pattern.compile(pattern);
-		Pattern r1 = Pattern.compile(pattern2);
+		Pattern r = Pattern.compile(".+\\s([0-9]+:[0-9]+):[0-9]+,\"(.+)\",\"(.+)\"");
+		//Pattern r1 = Pattern.compile(pattern2);
 		
 		for(String line : macMessages) {
 			Matcher match = r.matcher(line);
-			Matcher match1 = r1.matcher(line);
+			//Matcher match1 = r1.matcher(line);
 			
-			if(match.find()) {
+			while(match.find()) {
 				time.add(match.group(1));
 				name.add(match.group(2));
 				message.add(match.group(3));
-				macLine.add(match.group(1)+" "+"<"+match.group(2)+">"+" "+match.group(3));
+				macLine.add("<"+match.group(2)+">"+" "+match.group(1)+" "+match.group(3));
+				
 			}
 			
 			
-			if(match1.find()) {
+			/*if(match1.find()) {
 				time.add(match1.group(1));
 				name.add(match1.group(2));
 				message.add(match1.group(3));
 				macLine.add(match1.group(1)+" "+"<"+match1.group(2)+">"+" "+ match1.group(3));
 			}
-		
+		*/
 			
 		}
 		
