@@ -21,6 +21,8 @@ import org.apache.commons.cli.Options;
 
 /** 
  * This class is controller class ChatCounter
+ * threadNum and getNumThread added for thread branch
+ * these are used for processing file lines
  * @author to291
  *
  */
@@ -32,7 +34,7 @@ public class ChatCounter {
 	boolean help;
 	int threadNum;
 	String getNumThreads;
-	
+
 	private File dirc =null;
 	/**
 	 * This is the main method which instantiate ChatCounter as runner and run the program
@@ -66,9 +68,9 @@ public class ChatCounter {
 			ArrayList<String> csvMsg = new ArrayList<String>();
 			ArrayList<String> txtMsg = new ArrayList<String>();
 			this.dirc = new File(path);
-			
+
 			threadNum = Integer.parseInt(getNumThreads);
-			
+
 			ExecutorService executor = Executors.newFixedThreadPool(threadNum);
 			for(File file:dirc.listFiles())
 			{
@@ -84,11 +86,11 @@ public class ChatCounter {
 			while(!executor.isTerminated()) {
 
 			}			  	
-			
+
 			for(CSVreader runner : csv) {
 				csvMsg.addAll(runner.macMessages);
 			}
-			
+
 			ExecutorService executor2 = Executors.newFixedThreadPool(threadNum);
 
 			for(File file:dirc.listFiles())
@@ -106,7 +108,7 @@ public class ChatCounter {
 
 			}			  	
 
-			
+
 			for(TXTreader runner : txt) {
 				txtMsg.addAll(runner.winMessages);
 			}
