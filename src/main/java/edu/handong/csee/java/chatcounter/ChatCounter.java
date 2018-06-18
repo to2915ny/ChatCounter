@@ -63,14 +63,14 @@ public class ChatCounter {
 			ArrayList<String> csvMsg = new ArrayList<String>();
 			ArrayList<String> txtMsg = new ArrayList<String>();
 			this.dirc = new File(path);
-			
+
 			System.out.println("Please enter the number of threads  : ");
 			Scanner keyboard = new Scanner(System.in);
 			String Decoy = keyboard.nextLine();
 			getThreads="4";
 			threadNum = Integer.parseInt(getThreads);
-			
-			
+
+
 			ExecutorService executor = Executors.newFixedThreadPool(threadNum);
 			for(File file:dirc.listFiles())
 			{
@@ -194,8 +194,8 @@ public class ChatCounter {
 	private void printHelp(Options options) {
 		// automatically generate the help statement
 		HelpFormatter formatter = new HelpFormatter();
-		String header = "CLI test program";
-		String footer ="\nPlease report issues at https://github.com/to2915ny/CLIExample/issues";
-		formatter.printHelp("CLIExample", header, options, footer, true);
+		String header = "ChatCounting test program";
+		String footer ="\nPlease report issues via email to2915ny@me.com";
+		formatter.printHelp("ChatCounter", header, options, footer, true);
 	}
 }
