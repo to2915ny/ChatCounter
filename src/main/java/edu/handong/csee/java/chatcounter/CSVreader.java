@@ -27,13 +27,13 @@ public class CSVreader implements Runnable {
 	 * executor runs and invokes method readFile
 	 */
 	public void run() {
-		readFile(path);
+		readLine(path);
 	}
 	/**
 	 *  This method reads files and adds to ArrayList macMessages
 	 * @param file
 	 */
-	public void readFile(File file){
+	public void readLine(File file){
 		try {
 
 			BufferedReader br = new BufferedReader(new FileReader(file));

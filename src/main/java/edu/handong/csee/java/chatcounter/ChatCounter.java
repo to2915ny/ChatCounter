@@ -3,14 +3,9 @@ package edu.handong.csee.java.chatcounter;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.HashSet;
-import java.util.LinkedHashSet;
-import java.util.Set;
-import java.util.TreeSet;
-import java.util.concurrent.Executor;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-
+import java.util.*;
 import org.apache.commons.cli.CommandLine;
 import org.apache.commons.cli.CommandLineParser;
 import org.apache.commons.cli.DefaultParser;
@@ -33,7 +28,7 @@ public class ChatCounter {
 	boolean verbose;
 	boolean help;
 	int threadNum;
-	String getNumThreads;
+	String getThreads;
 
 	private File dirc =null;
 	/**
@@ -68,9 +63,14 @@ public class ChatCounter {
 			ArrayList<String> csvMsg = new ArrayList<String>();
 			ArrayList<String> txtMsg = new ArrayList<String>();
 			this.dirc = new File(path);
-
-			threadNum = Integer.parseInt(getNumThreads);
-
+			
+			System.out.println("Please enter the number of threads  : ");
+			Scanner keyboard = new Scanner(System.in);
+			String Decoy = keyboard.nextLine();
+			getThreads="4";
+			threadNum = Integer.parseInt(getThreads);
+			
+			
 			ExecutorService executor = Executors.newFixedThreadPool(threadNum);
 			for(File file:dirc.listFiles())
 			{

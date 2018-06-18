@@ -31,13 +31,13 @@ public class TXTreader implements Runnable {
 	 * executor runs and invokes method readFile
 	 */
 	public void run() {
-		readFile(path);
+		readLine(path);
 	}
 	/**
 	 * This method reads files and adds to ArrayList winMessages
 	 * @param path
 	 */
-	public void readFile(File path){
+	public void readLine(File path){
 		try {
 
 			BufferedReader br = new BufferedReader(new FileReader(path));
