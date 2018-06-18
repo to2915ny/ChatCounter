@@ -12,7 +12,11 @@ public class RedundancyChecker {
 
 	static ArrayList<String> checker;
 
-
+	/**
+	 * This method eliminates any repeated lines
+	 * @param line
+	 * @return
+	 */
 	public ArrayList<String> eliminateRepeat(ArrayList<String> line){
 		checker = new ArrayList<String>();
 		for(int i=0; i < line.size(); i++) {

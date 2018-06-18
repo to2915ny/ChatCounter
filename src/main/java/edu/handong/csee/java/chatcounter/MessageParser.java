@@ -147,15 +147,31 @@ public class MessageParser {
 			winLine.add(i,"<"+winName.get(i)+">"+" "+newTime.get(i)+" "+winMsg.get(i));
 
 	}
+	/**
+	 * This is a getter for ArrayList getWinLine
+	 * @return
+	 */
 	public ArrayList<String> getWinLine(){
 		return winLine;
 	}
+	/**
+	 * This is a getter for ArrayList getMacLine
+	 * @return
+	 */
 	public ArrayList<String> getMacLine(){
 		return macLine;
 	}
+	/**
+	 * This is a getter for ArrayList getWinName
+	 * @return
+	 */
 	public ArrayList<String> getWinName(){
 		return winName;
 	}
+	/**
+	 * This is a getter for ArrayList getMacName
+	 * @return
+	 */
 	public ArrayList<String> getMacName(){
 		return name;
 	}
