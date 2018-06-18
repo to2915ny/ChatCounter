@@ -15,17 +15,25 @@ public class CSVreader implements Runnable {
 
 	ArrayList<String> macMessages = new ArrayList<String>();
 	File path;
-
+	/**
+	 * This is a constructor which takes in path and saves it in instance variable path
+	 * @param path
+	 */
 	public CSVreader(File path) {
 
 		this.path = path;
 	}
-
+	/**
+	 * executor runs and invokes method readFile
+	 */
 	public void run() {
-		readLine(path);
+		readFile(path);
 	}
-
-	public void readLine(File file){
+	/**
+	 *  This method reads files and adds to ArrayList macMessages
+	 * @param file
+	 */
+	public void readFile(File file){
 		try {
 
 			BufferedReader br = new BufferedReader(new FileReader(file));

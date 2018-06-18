@@ -76,7 +76,7 @@ public class ChatCounter {
 			{
 				if (file.getName().contains(".csv")) {
 
-					Runnable worker = new CSVreader(file);
+					Runnable worker = new CSVreader(file); //instantiate Runnable as worker and implements on CSVreader
 					executor.execute(worker);
 					csv.add((CSVreader)worker);
 				}

@@ -19,17 +19,25 @@ public class TXTreader implements Runnable {
 
 	ArrayList<String> winMessages = new ArrayList<String>();
 	File path;
-
+	/**
+	 * This is a constructor which takes in path and saves it in instance variable path
+	 * @param path
+	 */
 	public TXTreader(File path) {
 
 		this.path = path;
 	}
-
+	/**
+	 * executor runs and invokes method readFile
+	 */
 	public void run() {
-		readLine(path);
+		readFile(path);
 	}
-
-	public void readLine(File path){
+	/**
+	 * This method reads files and adds to ArrayList winMessages
+	 * @param path
+	 */
+	public void readFile(File path){
 		try {
 
 			BufferedReader br = new BufferedReader(new FileReader(path));
