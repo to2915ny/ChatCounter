@@ -137,8 +137,8 @@ public class ChatCounter {
 	private void printHelp(Options options) {
 		// automatically generate the help statement
 		HelpFormatter formatter = new HelpFormatter();
-		String header = "CLI test program";
-		String footer ="\nPlease report issues at https://github.com/to2915ny/CLIExample/issues";
-		formatter.printHelp("CLIExample", header, options, footer, true);
+		String header = "ChatCounting Program";
+		String footer ="\nPlease report issues at to2915ny@me.com";
+		formatter.printHelp("ChatCounter", header, options, footer, true);
 	}
 }
